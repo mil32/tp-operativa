@@ -3,6 +3,4 @@ export class Connection {
   originNode: number;
   endNode: number;
   distance: number;
-  isInitial: Boolean;
-  isEnd: Boolean;
 }

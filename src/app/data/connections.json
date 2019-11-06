@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "originNode": 0,
+    "endNode": 1,
+    "distance": 2400
+  },
+  {
+    "id": 1,
+    "originNode": 0,
+    "endNode": 2,
+    "distance": 4500
+  },
+  {
+    "id": 2,
+    "originNode": 0,
+    "endNode": 3,
+    "distance": 5000
+  },
+  {
+    "id": 3,
+    "originNode": 0,
+    "endNode": 4,
+    "distance": 2900
+  },
+  {
+    "id": 4,
+    "originNode": 1,
+    "endNode": 2,
+    "distance": 3400
+  },
+  {
+    "id": 5,
+    "originNode": 1,
+    "endNode": 3,
+    "distance": 5600
+  },
+  {
+    "id": 6,
+    "originNode": 1,
+    "endNode": 4,
+    "distance": 4700
+  },
+  {
+    "id": 7,
+    "originNode": 2,
+    "endNode": 3,
+    "distance": 3500
+  },
+  {
+    "id": 8,
+    "originNode": 2,
+    "endNode": 4,
+    "distance": 3000
+  },
+  {
+    "id": 9,
+    "originNode": 3,
+    "endNode": 4,
+    "distance": 1900
+  }
+]
