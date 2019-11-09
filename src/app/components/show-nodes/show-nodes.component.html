@@ -1,1 +1,9 @@
-<p>show-nodes works!</p>
+<div>
+  <div class="nodeCard" *ngFor="let node of nodes">
+    <p>
+      #{{ node.id }} <b>{{ node.name }}</b>
+    </p>
+    <p>{{ node.address }}</p>
+    <p>stock: {{ node.stock }}</p>
+  </div>
+</div>

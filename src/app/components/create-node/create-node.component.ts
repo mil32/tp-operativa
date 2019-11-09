@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NetworkNode } from "../../model/networkNode";
 import LocalNodes from "../../data/nodes.json";
+import { GlobalService } from "src/app/services/global.service";
 
 @Component({
   selector: "app-create-node",
@@ -13,9 +14,9 @@ export class CreateNodeComponent implements OnInit {
   nodeForm: FormGroup;
   nodes: Array<NetworkNode> = [];
 
-  constructor() {
+  constructor(private globalService: GlobalService) {
     if (this.nodes.length < 1) {
-      this.nodes = LocalNodes;
+      this.nodes = globalService.getNodes();
     }
   }
 
@@ -26,11 +27,10 @@ export class CreateNodeComponent implements OnInit {
       stock: new FormControl(this.node.stock, Validators.required)
     });
   }
-
   onSubmit() {
-    this.node = this.nodeForm.value;
-    this.node.id = this.nodes.length;
-    this.nodes.push(this.node);
+    let n = this.nodeForm.value;
+    n.id = this.nodes.length;
+    this.nodes = this.globalService.addNode(n);
     console.log("PUSHED!", this.nodes);
   }
 }

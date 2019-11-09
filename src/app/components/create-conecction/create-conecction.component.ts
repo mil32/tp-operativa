@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Connection } from "src/app/model/connection";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import LocalConnections from "../../data/connections.json";
+import { GlobalService } from "src/app/services/global.service.js";
 
 @Component({
   selector: "app-create-conecction",
@@ -13,9 +13,9 @@ export class CreateConecctionComponent implements OnInit {
   connectionForm: FormGroup;
   connections: Array<Connection> = [];
 
-  constructor() {
+  constructor(private globalService: GlobalService) {
     if (this.connections.length < 1) {
-      this.connections = LocalConnections;
+      this.connections = globalService.getConnections();
     }
   }
 
@@ -31,9 +31,9 @@ export class CreateConecctionComponent implements OnInit {
   }
 
   onSubmit() {
-    this.connection = this.connectionForm.value;
-    this.connection.id = this.connections.length;
-    this.connections.push(this.connection);
+    let con = this.connectionForm.value;
+    con.id = this.connections.length;
+    this.connections = this.globalService.addConnection(con);
     console.log("PUSHED!", this.connections);
   }
 }
