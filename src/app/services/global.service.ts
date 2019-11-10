@@ -57,6 +57,10 @@ export class GlobalService {
     return this.connections;
   }
 
+  deleteConnection(id: number): void {
+    let erased = this.connections.splice(id, 1);
+    this.setFullNodes();
+  }
   getNodes(): NetworkNode[] {
     return this.nodes;
   }

@@ -13,6 +13,10 @@ export class ShowNodesComponent implements OnInit {
 
   constructor() {}
 
+  delete(id: any) {
+    this.globalService.deleteConnection(id);
+  }
+
   ngOnInit() {
     this.nodes = this.globalService.getFullNodes();
     this.globalService.fullNodes$.subscribe(resp => {
