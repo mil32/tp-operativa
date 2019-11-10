@@ -1,0 +1,13 @@
+.pageContainer {
+  margin: 20px 0px 50px 0px;
+}
+
+.actionsContainer {
+  padding: 20px 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  button {
+    font-size: 2em;
+  }
+}

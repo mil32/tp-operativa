@@ -22,5 +22,14 @@
         <button (click)="deleteConnection(conn.id)">X</button>
       </p>
     </div>
+    <div class="togglers">
+      <div (click)="toggleSelected(node)">
+        <input type="checkBox" /> Seleccionado
+      </div>
+      <div (click)="toggleStartNode(node.id)">
+        <input type="checkBox" /> Inicio
+      </div>
+      <div (click)="toggleEndNode(node.id)"><input type="checkBox" /> Fin</div>
+    </div>
   </div>
 </div>
