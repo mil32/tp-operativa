@@ -13,8 +13,12 @@ export class ShowNodesComponent implements OnInit {
 
   constructor() {}
 
-  delete(id: any) {
+  deleteConnection(id: any) {
     this.globalService.deleteConnection(id);
+  }
+
+  deleteNode(id: any) {
+    this.globalService.deleteNode(id);
   }
 
   ngOnInit() {
