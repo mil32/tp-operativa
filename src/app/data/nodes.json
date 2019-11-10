@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "Fabrica",
+    "address": "Av. Juan José Paso 700",
+    "stock": 500,
+    "isInitial": true,
+    "isEnd": false
+  },
+  {
+    "id": 1,
+    "name": "Punto de Venta #1",
+    "address": "Gascón 150",
+    "stock": 100,
+    "isInitial": false,
+    "isEnd": false
+  },
+  {
+    "id": 2,
+    "name": "Punto de Venta #2",
+    "address": "Santiago del Estero 1700",
+    "stock": 100,
+    "isInitial": false,
+    "isEnd": false
+  },
+  {
+    "id": 3,
+    "name": "Punto de Venta #3",
+    "address": "San Juan 3102",
+    "stock": 100,
+    "isInitial": false,
+    "isEnd": false
+  },
+  {
+    "id": 4,
+    "name": "Punto de Venta #4",
+    "address": "Quintana 3001",
+    "stock": 100,
+    "isInitial": false,
+    "isEnd": false
+  }
+]

@@ -1,0 +1,12 @@
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.nodeCard {
+  width: 100%;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 20px;
+}

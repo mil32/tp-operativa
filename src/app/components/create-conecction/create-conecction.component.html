@@ -1,0 +1,6 @@
+<form [formGroup]="connectionForm" (ngSubmit)="onSubmit()">
+  <input type="number" formControlName="originNode" placeholder="Nodo Origen" />
+  <input type="number" formControlName="endNode" placeholder="Nodo Destino" />
+  <input type="number" formControlName="distance" placeholder="Distancia" />
+  <button type="submit" [disabled]="!connectionForm.valid">SUBMIT</button>
+</form>
