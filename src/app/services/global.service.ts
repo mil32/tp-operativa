@@ -13,12 +13,14 @@ export class GlobalService {
   private nodes = new Array<NetworkNode>();
   private connections = new Array<Connection>();
   private fullNodes = new Array<FullNode>();
+  private selectedNodes: NetworkNode[] = [];
+  private startNode: string;
+  private endNode: string;
 
   fullNodesSubject: BehaviorSubject<FullNode[]>;
   fullNodes$: Observable<FullNode[]>;
 
   constructor() {
-    console.log("====RECONTRABUILD=====");
     this.nodes = LocalNodes.map(
       n =>
         new NetworkNode(n.id, n.name, n.address, n.stock, n.isInitial, n.isEnd)
@@ -34,17 +36,12 @@ export class GlobalService {
 
   setFullNodes(selectedNodes: NetworkNode[] = this.nodes): void {
     console.log("[Building Full Nodes]");
-    // console.log("XXXXXX GET", this.getNodes());
     let finalArray: FullNode[] = [];
-    // console.log("[setFullNodes] SelectedNodes >", selectedNodes);
 
     selectedNodes.forEach(node => {
       finalArray.push(new FullNode(node, this.connections));
     });
-    // console.log("[setFullNodes] Final Array >", finalArray);
-
     this.fullNodes = finalArray;
-    // console.log("[setFullNodes] >", this.connections);
     this.fullNodesSubject.next(this.fullNodes);
   }
 
@@ -58,9 +55,17 @@ export class GlobalService {
   }
 
   deleteConnection(id: number): void {
-    let erased = this.connections.splice(id, 1);
+    this.connections = this.connections.filter(conn => conn.id != id);
     this.setFullNodes();
   }
+
+  deleteNode(id: number): void {
+    this.nodes = this.nodes.filter(node => node.id != id);
+    this.connections = this.connections.filter(conn => conn.originNode != id);
+    this.connections = this.connections.filter(conn => conn.endNode != id);
+    this.setFullNodes();
+  }
+
   getNodes(): NetworkNode[] {
     return this.nodes;
   }
@@ -91,5 +96,32 @@ export class GlobalService {
     );
     console.log("[GS] CONN ADDED >", this.nodes, this.connections);
     this.setFullNodes();
+  }
+
+  toggleStartNode(id: string): void {
+    this.startNode = id;
+    console.log("[START]> ", this.startNode);
+  }
+  toggleEndNode(id: string): void {
+    this.endNode = id;
+    console.log("[END]> ", this.endNode);
+  }
+
+  toggleNode(fullnode: any): void {
+    if (this.selectedNodes.includes(fullnode)) {
+      let index = this.selectedNodes.indexOf(fullnode);
+      this.selectedNodes.splice(index, 1);
+    } else {
+      this.selectedNodes.push(fullnode);
+    }
+  }
+
+  economicPath(): void {
+    console.log("[ECONOMIC]", this.selectedNodes);
+    console.log("[start / end]", this.startNode, this.endNode);
+  }
+
+  travelAgent(): void {
+    console.log("[TRAVEL AGENT]", this.fullNodes);
   }
 }

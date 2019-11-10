@@ -1,3 +1,12 @@
-<app-show-nodes [globalService]="globalService"></app-show-nodes>
-<app-create-node [globalService]="globalService"></app-create-node>
-<app-create-conecction [globalService]="globalService"></app-create-conecction>
+<div class="pageContainer">
+  <app-show-nodes [globalService]="globalService"></app-show-nodes>
+  <app-create-node [globalService]="globalService"></app-create-node>
+  <app-create-conecction
+    [globalService]="globalService"
+  ></app-create-conecction>
+
+  <div class="actionsContainer">
+    <button (click)="generateEconomicPath()">Camino Economico</button>
+    <button (click)="generateTravelAgent()">Agente Viajero</button>
+  </div>
+</div>

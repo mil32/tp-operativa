@@ -2,6 +2,7 @@
   <div class="nodeCard" *ngFor="let node of nodes">
     <p>
       #{{ node.id }} <b>{{ node.name }}</b>
+      <button (click)="deleteNode(node.id)">X</button>
     </p>
     <p>{{ node.address }}</p>
     <p>stock: {{ node.stock }}</p>
@@ -18,8 +19,17 @@
         </ng-template>
 
         > {{ conn.distance }} mts.
-        <button (click)="delete(conn.id)">X</button>
+        <button (click)="deleteConnection(conn.id)">X</button>
       </p>
+    </div>
+    <div class="togglers">
+      <div (click)="toggleSelected(node)">
+        <input type="checkBox" /> Seleccionado
+      </div>
+      <div (click)="toggleStartNode(node.id)">
+        <input type="checkBox" /> Inicio
+      </div>
+      <div (click)="toggleEndNode(node.id)"><input type="checkBox" /> Fin</div>
     </div>
   </div>
 </div>
