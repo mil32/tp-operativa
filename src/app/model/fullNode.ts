@@ -17,6 +17,8 @@ export class FullNode {
     this.stock = n.stock;
     this.isInitial = n.isInitial;
     this.isEnd = n.isEnd;
-    this.connections = connections.filter(c => c.originNode == this.id);
+    this.connections = connections.filter(
+      c => c.originNode == this.id || c.endNode == this.id
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Connection } from "src/app/model/connection";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { GlobalService } from "src/app/services/global.service.js";
@@ -9,15 +9,11 @@ import { GlobalService } from "src/app/services/global.service.js";
   styleUrls: ["./create-conecction.component.scss"]
 })
 export class CreateConecctionComponent implements OnInit {
+  @Input() globalService: GlobalService;
   connection: Connection = new Connection();
   connectionForm: FormGroup;
-  connections: Array<Connection> = [];
 
-  constructor(private globalService: GlobalService) {
-    if (this.connections.length < 1) {
-      this.connections = globalService.getConnections();
-    }
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.connectionForm = new FormGroup({
@@ -32,8 +28,6 @@ export class CreateConecctionComponent implements OnInit {
 
   onSubmit() {
     let con = this.connectionForm.value;
-    con.id = this.connections.length;
-    this.connections = this.globalService.addConnection(con);
-    console.log("PUSHED!", this.connections);
+    this.globalService.addConnection(con);
   }
 }

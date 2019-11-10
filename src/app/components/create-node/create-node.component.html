@@ -1,12 +1,6 @@
-<p>create-node works!</p>
-
-<app-show-nodes></app-show-nodes>
-
 <form [formGroup]="nodeForm" (ngSubmit)="onSubmit()">
   <input type="text" formControlName="name" placeholder="Nombre Descriptivo" />
   <input type="text" formControlName="address" placeholder="Direccion" />
   <input type="number" formControlName="stock" placeholder="Stock Inicial" />
   <button type="submit" [disabled]="!nodeForm.valid">SUBMIT</button>
 </form>
-
-<app-create-conecction></app-create-conecction>

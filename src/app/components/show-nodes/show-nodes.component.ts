@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { FullNode } from "src/app/model/fullNode";
 import { GlobalService } from "src/app/services/global.service";
 
@@ -8,14 +8,16 @@ import { GlobalService } from "src/app/services/global.service";
   styleUrls: ["./show-nodes.component.scss"]
 })
 export class ShowNodesComponent implements OnInit {
+  @Input() globalService: GlobalService;
   nodes: Array<FullNode>;
 
-  constructor(private globalService: GlobalService) {
-    this.nodes = globalService.getFullNodes();
-    console.log("Show [Building] >", this.nodes);
-  }
+  constructor() {}
 
   ngOnInit() {
-    console.log("HOLIS", this.nodes);
+    this.nodes = this.globalService.getFullNodes();
+    this.globalService.fullNodes$.subscribe(resp => {
+      console.log("= SHOW NOTIFIED=", resp);
+      this.nodes = resp;
+    });
   }
 }

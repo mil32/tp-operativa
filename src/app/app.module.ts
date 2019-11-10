@@ -9,6 +9,8 @@ import { CreateNodeComponent } from "./components/create-node/create-node.compon
 import { CreateConecctionComponent } from "./components/create-conecction/create-conecction.component";
 import { ShowNodesComponent } from "./components/show-nodes/show-nodes.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { GlobalService } from "./services/global.service";
+import { NodesPageComponent } from './pages/nodes-page/nodes-page.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +19,11 @@ import { ReactiveFormsModule } from "@angular/forms";
     HomeComponent,
     CreateNodeComponent,
     CreateConecctionComponent,
-    ShowNodesComponent
+    ShowNodesComponent,
+    NodesPageComponent
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
-  providers: [],
+  providers: [GlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

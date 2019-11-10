@@ -4,61 +4,88 @@ import { Connection } from "../model/connection";
 import { FullNode } from "../model/fullNode";
 import LocalNodes from "../data/nodes.json";
 import LocalConnections from "../data/connections.json";
+import { BehaviorSubject, Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class GlobalService {
-  nodes: Array<NetworkNode> = [];
-  connections: Array<Connection> = [];
-  fullNodes: Array<FullNode> = [];
+  private nodes = new Array<NetworkNode>();
+  private connections = new Array<Connection>();
+  private fullNodes = new Array<FullNode>();
+
+  fullNodesSubject: BehaviorSubject<FullNode[]>;
+  fullNodes$: Observable<FullNode[]>;
 
   constructor() {
+    console.log("====RECONTRABUILD=====");
     this.nodes = LocalNodes.map(
       n =>
         new NetworkNode(n.id, n.name, n.address, n.stock, n.isInitial, n.isEnd)
     );
-
     this.connections = LocalConnections.map(
       conn =>
         new Connection(conn.id, conn.originNode, conn.endNode, conn.distance)
     );
+    this.fullNodesSubject = new BehaviorSubject<FullNode[]>(this.fullNodes);
+    this.fullNodes$ = this.fullNodesSubject.asObservable();
+    this.setFullNodes();
   }
 
-  getConnections(): Array<Connection> {
-    return this.connections;
-  }
+  setFullNodes(selectedNodes: NetworkNode[] = this.nodes): void {
+    console.log("[Building Full Nodes]");
+    // console.log("XXXXXX GET", this.getNodes());
+    let finalArray: FullNode[] = [];
+    // console.log("[setFullNodes] SelectedNodes >", selectedNodes);
 
-  getNodes(): Array<NetworkNode> {
-    return this.nodes;
-  }
-
-  setFullNodes(selectedNodes: Array<NetworkNode>): void {
-    let finalArray: Array<FullNode> = [];
     selectedNodes.forEach(node => {
       finalArray.push(new FullNode(node, this.connections));
     });
+    // console.log("[setFullNodes] Final Array >", finalArray);
+
     this.fullNodes = finalArray;
+    // console.log("[setFullNodes] >", this.connections);
+    this.fullNodesSubject.next(this.fullNodes);
   }
 
-  getFullNodes(
-    selectedNodes: Array<NetworkNode> = this.nodes
-  ): Array<FullNode> {
+  getFullNodes(selectedNodes: NetworkNode[] = this.nodes): FullNode[] {
     this.setFullNodes(selectedNodes);
     return this.fullNodes;
   }
 
-  addNode(n: any): Array<NetworkNode> {
-    this.nodes.push(
-      new NetworkNode(n.id, n.name, n.address, n.stock, n.isInitial, n.isEnd)
-    );
+  getConnections(): Connection[] {
+    return this.connections;
+  }
+
+  getNodes(): NetworkNode[] {
     return this.nodes;
   }
 
-  addConnection(con: any): Array<Connection> {
-    this.connections.push(
-      new Connection(con.id, con.originNode, con.endNode, con.distance)
+  addNode(n: any): void {
+    this.nodes.push(
+      new NetworkNode(
+        this.nodes.length,
+        n.name,
+        n.address,
+        n.stock,
+        n.isInitial,
+        n.isEnd
+      )
     );
-    return this.connections;
+    console.log("[GS] NODE ADDED >", this.nodes, this.connections);
+    this.setFullNodes();
+  }
+
+  addConnection(con: any): void {
+    this.connections.push(
+      new Connection(
+        this.connections.length,
+        con.originNode,
+        con.endNode,
+        con.distance
+      )
+    );
+    console.log("[GS] CONN ADDED >", this.nodes, this.connections);
+    this.setFullNodes();
   }
 }

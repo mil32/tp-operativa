@@ -1,9 +1,24 @@
-<div>
+<div class="cardContainer">
   <div class="nodeCard" *ngFor="let node of nodes">
     <p>
       #{{ node.id }} <b>{{ node.name }}</b>
     </p>
     <p>{{ node.address }}</p>
     <p>stock: {{ node.stock }}</p>
+    <h4>Conecciones</h4>
+    <div *ngIf="node.connections.length == 0">NO HAY!</div>
+    <div *ngFor="let conn of node.connections">
+      <p>
+        Con nodo
+        <span *ngIf="conn.originNode == node.id; else opb">
+          #{{ conn.endNode }}
+        </span>
+        <ng-template #opb>
+          <span> #{{ conn.originNode }}</span>
+        </ng-template>
+
+        > {{ conn.distance }} mts.
+      </p>
+    </div>
   </div>
 </div>

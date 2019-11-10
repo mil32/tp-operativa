@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NetworkNode } from "../../model/networkNode";
-import LocalNodes from "../../data/nodes.json";
 import { GlobalService } from "src/app/services/global.service";
 
 @Component({
@@ -10,15 +9,11 @@ import { GlobalService } from "src/app/services/global.service";
   styleUrls: ["./create-node.component.scss"]
 })
 export class CreateNodeComponent implements OnInit {
+  @Input() globalService: GlobalService;
   node: NetworkNode = new NetworkNode();
   nodeForm: FormGroup;
-  nodes: Array<NetworkNode> = [];
 
-  constructor(private globalService: GlobalService) {
-    if (this.nodes.length < 1) {
-      this.nodes = globalService.getNodes();
-    }
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.nodeForm = new FormGroup({
@@ -29,8 +24,6 @@ export class CreateNodeComponent implements OnInit {
   }
   onSubmit() {
     let n = this.nodeForm.value;
-    n.id = this.nodes.length;
-    this.nodes = this.globalService.addNode(n);
-    console.log("PUSHED!", this.nodes);
+    this.globalService.addNode(n);
   }
 }
