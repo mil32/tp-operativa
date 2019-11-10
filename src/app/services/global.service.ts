@@ -34,13 +34,26 @@ export class GlobalService {
     this.setFullNodes();
   }
 
-  setFullNodes(selectedNodes: NetworkNode[] = this.nodes): void {
-    console.log("[Building Full Nodes]");
+  createFullNodes(nodes: NetworkNode[]): FullNode[] {
+    let ids = [];
     let finalArray: FullNode[] = [];
-
-    selectedNodes.forEach(node => {
-      finalArray.push(new FullNode(node, this.connections));
+    nodes.forEach(node => ids.push(node.id));
+    let filteredConnections = this.filterConnections(ids);
+    nodes.forEach(node => {
+      finalArray.push(new FullNode(node, filteredConnections));
     });
+    return finalArray;
+  }
+
+  filterConnections(ids: number[]): Connection[] {
+    let filteredConnections = this.connections.filter(
+      conn => ids.includes(conn.originNode) && ids.includes(conn.endNode)
+    );
+    return filteredConnections;
+  }
+
+  setFullNodes(selectedNodes: NetworkNode[] = this.nodes): void {
+    let finalArray = this.createFullNodes(selectedNodes);
     this.fullNodes = finalArray;
     this.fullNodesSubject.next(this.fullNodes);
   }
@@ -108,16 +121,19 @@ export class GlobalService {
   }
 
   toggleNode(fullnode: any): void {
-    if (this.selectedNodes.includes(fullnode)) {
-      let index = this.selectedNodes.indexOf(fullnode);
+    let node = this.nodes.find(node => node.id == fullnode.id);
+    if (this.selectedNodes.includes(node)) {
+      let index = this.selectedNodes.indexOf(node);
       this.selectedNodes.splice(index, 1);
     } else {
-      this.selectedNodes.push(fullnode);
+      this.selectedNodes.push(node);
     }
   }
 
   economicPath(): void {
-    console.log("[ECONOMIC]", this.selectedNodes);
+    let selectedFinalNodes = this.createFullNodes(this.selectedNodes);
+
+    console.log("[ECONOMIC]", selectedFinalNodes);
     console.log("[start / end]", this.startNode, this.endNode);
   }
 
