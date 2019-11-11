@@ -71,7 +71,7 @@ export default class Graph {
 
     // Check if edge has been already added.
     if (this.edges[edge.getKey()]) {
-      //throw new Error('Edge has already been added before');
+      throw new Error('Edge has already been added before');
     } else {
       this.edges[edge.getKey()] = edge;
     }
