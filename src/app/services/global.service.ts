@@ -5,6 +5,10 @@ import { FullNode } from "../model/fullNode";
 import LocalNodes from "../data/nodes.json";
 import LocalConnections from "../data/connections.json";
 import { BehaviorSubject, Observable, of } from "rxjs";
+import Graph from '../../data-structures/graph/Graph.js';
+import GraphVertex from '../../data-structures/graph/GraphVertex.js';
+import GraphEdge from '../../data-structures/graph/GraphEdge.js';
+import travellingSalesman from '../../algorithms/travellingSalesman.js';
 
 @Injectable({
   providedIn: "root"
@@ -137,7 +141,27 @@ export class GlobalService {
     console.log("[start / end]", this.startNode, this.endNode);
   }
 
+  
+
   travelAgent(): void {
-    console.log("[TRAVEL AGENT]", this.fullNodes);
+    
+    let selectedFinalNodes = this.createFullNodes(this.selectedNodes);
+    const graph = new Graph(true);
+    const graphEdges = new Array();
+  
+    selectedFinalNodes.forEach(node => {
+      node.connections.forEach(connection => {
+        graphEdges.push(new GraphEdge(new GraphVertex(connection.originNode),new GraphVertex(connection.endNode), connection.distance))
+      });
+    });
+  
+    graphEdges.forEach(graphEdge => {
+      graph.addEdge(graphEdge);
+    });
+    console.log(graph);
+    
+    const salesmanPath = travellingSalesman(graph);
+    console.log(salesmanPath);
+     
   }
 }
