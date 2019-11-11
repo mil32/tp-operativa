@@ -73,7 +73,6 @@ function findAllPaths(startVertex, paths = [], path = []) {
     // BRUTE FORCE.
     // Generate all possible paths from startVertex.
     const allPossiblePaths = findAllPaths(startVertex);
-  
     // Filter out paths that are not cycles.
     const allPossibleCycles = allPossiblePaths.filter((path) => {
       /** @var {GraphVertex} */
@@ -88,6 +87,7 @@ function findAllPaths(startVertex, paths = [], path = []) {
     const verticesIndices = graph.getVerticesIndices();
     let salesmanPath = [];
     let salesmanPathWeight = null;
+    
     for (let cycleIndex = 0; cycleIndex < allPossibleCycles.length; cycleIndex += 1) {
       const currentCycle = allPossibleCycles[cycleIndex];
       const currentCycleWeight = getCycleWeight(adjacencyMatrix, verticesIndices, currentCycle);
@@ -100,5 +100,5 @@ function findAllPaths(startVertex, paths = [], path = []) {
     }
   
     // Return the solution.
-    return salesmanPath;
+    return salesmanPathWeight;
   }

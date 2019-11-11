@@ -146,22 +146,59 @@ export class GlobalService {
   travelAgent(): void {
     
     let selectedFinalNodes = this.createFullNodes(this.selectedNodes);
-    const graph = new Graph(true);
-    const graphEdges = new Array();
-  
-    selectedFinalNodes.forEach(node => {
-      node.connections.forEach(connection => {
-        graphEdges.push(new GraphEdge(new GraphVertex(connection.originNode),new GraphVertex(connection.endNode), connection.distance))
-      });
-    });
-  
-    graphEdges.forEach(graphEdge => {
-      graph.addEdge(graphEdge);
-    });
-    console.log(graph);
+    let graph = new Graph(false);
+    let graphEdges = new Array();
+    let vertexes = new Array();
+    /*selectedFinalNodes.forEach(node => {
+     node.connections.forEach(connection => {
+       alreadyAdded = false;
+       graphEdges.forEach(edge => {
+         if (edge.weight == connection.distance) {
+           alreadyAdded = true;
+         }
+       });
+       if (alreadyAdded) {
+         console.log('Edge ommited cause already exist');
+       }else {
+        graphEdges.push(new GraphEdge(new GraphVertex(connection.originNode), new GraphVertex(connection.endNode), connection.distance) );
+       }
+     });
+    });*/
     
-    const salesmanPath = travellingSalesman(graph);
-    console.log(salesmanPath);
-     
+   console.log(selectedFinalNodes);
+   
+    let vertex0 = new GraphVertex('0');
+    let vertex1 = new GraphVertex('1');
+    let vertex2 = new GraphVertex('2');
+    let vertex3 = new GraphVertex('3');
+    let vertex4 = new GraphVertex('4');
+
+    let salesmanPath = null;
+    const edge01 = new GraphEdge(vertex0, vertex1, 2400);
+    const edge02 = new GraphEdge(vertex0, vertex2, 4500);
+    const edge03 = new GraphEdge(vertex0, vertex3, 5000);
+    const edge04 = new GraphEdge(vertex0, vertex4, 2900);
+    const edge12 = new GraphEdge(vertex1, vertex2, 3400);
+    const edge13 = new GraphEdge(vertex1, vertex3, 5600);
+    const edge14 = new GraphEdge(vertex1, vertex4, 4700);
+    const edge23 = new GraphEdge(vertex2, vertex3, 3500);
+    const edge24 = new GraphEdge(vertex2, vertex4, 3000);
+    const edge34 = new GraphEdge(vertex3, vertex4, 1900);
+   
+    graph.addEdge(edge01).
+      addEdge(edge02).
+      addEdge(edge03).
+      addEdge(edge04).
+      addEdge(edge12).
+      addEdge(edge13).
+      addEdge(edge14).
+      addEdge(edge23).
+      addEdge(edge24).
+      addEdge(edge34);
+
+    salesmanPath = travellingSalesman(graph);  
+        console.log(salesmanPath);
+        
   }
+
 }
