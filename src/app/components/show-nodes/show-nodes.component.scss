@@ -1,18 +1,20 @@
 .cardContainer {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 10px;
 }
 
 .nodeCard {
   width: 100%;
-  border: 1px solid black;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
   margin: 5px;
   padding: 20px;
 }
 
 .togglers {
+  margin: 20px 0px 0px 0px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 3fr 2fr 1fr;
   grid-gap: 10px;
 }
