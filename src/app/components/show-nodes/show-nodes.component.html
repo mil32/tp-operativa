@@ -6,11 +6,11 @@
     </p>
     <p>{{ node.address }}</p>
     <p>stock: {{ node.stock }}</p>
-    <h4>Conecciones</h4>
+    <h4>Distancias</h4>
     <div *ngIf="node.connections.length == 0">NO HAY!</div>
     <div *ngFor="let conn of node.connections">
       <p>
-        Con nodo
+        A Sucursal
         <span *ngIf="conn.originNode == node.id; else opb">
           #{{ conn.endNode }}
         </span>

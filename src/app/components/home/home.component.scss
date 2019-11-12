@@ -1,0 +1,41 @@
+.hero{
+    width:100%;
+    min-height:90vh;
+    background-image: url('../../../assets/images/pizza.png');
+    background-size: cover;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.bigTitle {
+    padding: 5px;
+    line-height:1.4em;
+    font-size: 3em;
+    color: white;
+    background-color: rgba(231,29,54,0.7);
+}
+.admBtn{
+    margin-top:20px;
+    margin-left: 350px;
+    display: block;
+    font-size: 1.7em;
+    padding: 10px 20px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    &:hover{
+        background-color: rgb(231,29,54);
+        border-color: rgb(231,29,54);
+    }
+    &:active{
+        background-color: rgb(163, 20, 37);
+
+    }
+}
+
+.rAlignt{
+    padding-right: 40px;
+    text-align: right;    
+}
