@@ -1,15 +1,9 @@
 [
   {
-    "id": 0,
+    "id": 1,
     "originNode": 0,
     "endNode": 1,
     "distance": 2400
-  },
-  {
-    "id": 1,
-    "originNode": 0,
-    "endNode": 2,
-    "distance": 4500
   },
   {
     "id": 2,
@@ -34,12 +28,6 @@
     "originNode": 1,
     "endNode": 3,
     "distance": 5600
-  },
-  {
-    "id": 6,
-    "originNode": 1,
-    "endNode": 4,
-    "distance": 4700
   },
   {
     "id": 7,
