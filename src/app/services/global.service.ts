@@ -5,6 +5,11 @@ import { FullNode } from "../model/fullNode";
 import LocalNodes from "../data/nodes.json";
 import LocalConnections from "../data/connections.json";
 import { BehaviorSubject, Observable, of } from "rxjs";
+import Graph from "../../data-structures/graph/Graph.js";
+import GraphVertex from "../../data-structures/graph/GraphVertex.js";
+import GraphEdge from "../../data-structures/graph/GraphEdge.js";
+import travellingSalesman from "../../algorithms/travellingSalesman.js";
+import dijkstra from "../../algorithms/dijkstra.js";
 
 @Injectable({
   providedIn: "root"
@@ -132,12 +137,97 @@ export class GlobalService {
 
   economicPath(): void {
     let selectedFinalNodes = this.createFullNodes(this.selectedNodes);
+    let graphEdges = [];
+    let alreadyAdded;
+    let graph = new Graph();
+    /*selectedFinalNodes.forEach(node => {
+     node.connections.forEach(connection => {
+       alreadyAdded = false;
+       graphEdges.forEach(edge => {
+         if (edge.weight == connection.distance) {
+           alreadyAdded = true;
+         }
+       });
+       if (alreadyAdded) {
+         console.log('Edge ommited cause already exist');
+       }else {
+        graphEdges.push(new GraphEdge(new GraphVertex(connection.originNode), new GraphVertex(connection.endNode), connection.distance) );
+       }
+     });
+    });
+    graph.addVertex(graphVertex);
+    graphEdges.forEach(edge => {
+      graph.addEdge(edge);
+    });
+    console.log(graph);
+    console.log();*/
 
-    console.log("[ECONOMIC]", selectedFinalNodes);
-    console.log("[start / end]", this.startNode, this.endNode);
+    let vertex0 = new GraphVertex("0");
+    let vertex1 = new GraphVertex("1");
+    let vertex2 = new GraphVertex("2");
+    let vertex3 = new GraphVertex("3");
+    let vertex4 = new GraphVertex("4");
+
+    let salesmanPath = null;
+    const edge01 = new GraphEdge(vertex0, vertex1, 2400);
+    const edge03 = new GraphEdge(vertex0, vertex3, 5000);
+    const edge04 = new GraphEdge(vertex0, vertex4, 2900);
+    const edge12 = new GraphEdge(vertex1, vertex2, 3400);
+    const edge13 = new GraphEdge(vertex1, vertex3, 5600);
+    const edge23 = new GraphEdge(vertex2, vertex3, 3500);
+    const edge24 = new GraphEdge(vertex2, vertex4, 3000);
+    const edge34 = new GraphEdge(vertex3, vertex4, 1900);
+
+    graph
+      .addEdge(edge01)
+      .addEdge(edge03)
+      .addEdge(edge04)
+      .addEdge(edge12)
+      .addEdge(edge13)
+      .addEdge(edge23)
+      .addEdge(edge24)
+      .addEdge(edge34);
+
+    const { distances, previousVertices } = dijkstra(graph, vertex0);
+    console.log(distances);
+    console.log(previousVertices);
+
+    //console.log("[ECONOMIC]", selectedFinalNodes);
+    //console.log("[start / end]", this.startNode, this.endNode);
   }
 
-  travelAgent(): void {
-    console.log("[TRAVEL AGENT]", this.fullNodes);
+  travelAgent(): any {
+    let graph = new Graph(false);
+    let vertex = [];
+    this.nodes.forEach(node => {
+      vertex.push(new GraphVertex(node.id));
+    });
+    let salesmanPath = null;
+    let edges = [];
+
+    this.connections.forEach(conn => {
+      edges.push(
+        new GraphEdge(
+          vertex[conn.originNode],
+          vertex[conn.endNode],
+          conn.distance
+        )
+      );
+    });
+
+    edges.forEach(edge => {
+      graph.addEdge(edge);
+    });
+
+    salesmanPath = travellingSalesman(graph);
+
+    let path = [];
+    salesmanPath.salesmanPath.forEach(gf => {
+      path.push(gf.getKey());
+    });
+    let length = salesmanPath.salesmanPathWeight;
+
+    console.log({ path, length });
+    return { path, length };
   }
 }
