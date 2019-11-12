@@ -10,6 +10,7 @@ import GraphVertex from '../../data-structures/graph/GraphVertex.js';
 import GraphEdge from '../../data-structures/graph/GraphEdge.js';
 import travellingSalesman from '../../algorithms/travellingSalesman.js';
 import dijkstra from '../../algorithms/dijkstra.js';
+import hamiltonianCycle from '../../algorithms/hamiltonianCycle.js';
 
 @Injectable({
   providedIn: "root"
@@ -162,7 +163,7 @@ export class GlobalService {
     console.log(graph);
     console.log();*/
 
-    let vertex0 = new GraphVertex('0');
+    let vertex0 = new GraphVertex(this.startNode);
     let vertex1 = new GraphVertex('1');
     let vertex2 = new GraphVertex('2');
     let vertex3 = new GraphVertex('3');
@@ -228,7 +229,7 @@ export class GlobalService {
     let vertex3 = new GraphVertex('3');
     let vertex4 = new GraphVertex('4');
 
-    let salesmanPath = null;
+    let hamiltonianCylce = null;
     const edge01 = new GraphEdge(vertex0, vertex1, 2400);
     const edge03 = new GraphEdge(vertex0, vertex3, 5000);
     const edge04 = new GraphEdge(vertex0, vertex4, 2900);
@@ -247,8 +248,8 @@ export class GlobalService {
       addEdge(edge24).
       addEdge(edge34);
 
-    salesmanPath = travellingSalesman(graph);
-    console.log(salesmanPath);
+      hamiltonianCylce = hamiltonianCycle(graph);
+    console.log(hamiltonianCylce);
 
   }
 
