@@ -9,4 +9,16 @@
     <button (click)="generateEconomicPath()">Camino Economico</button>
     <button (click)="generateTravelAgent()">Agente Viajero</button>
   </div>
+
+  <div *ngIf="response">
+    <h2>Ruta Optima</h2>
+    <p>
+      Fábrica >>
+      <span *ngFor="let id of response.path"> Sucursal #{{ id }} >></span>
+      Fábrica
+    </p>
+    <p>
+      Recorrido total : <b>{{ response.length }} metros</b>
+    </p>
+  </div>
 </div>

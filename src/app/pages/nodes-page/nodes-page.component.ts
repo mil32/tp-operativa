@@ -9,14 +9,16 @@ import { FullNode } from "src/app/model/fullNode";
 })
 export class NodesPageComponent implements OnInit {
   selectedNodes: FullNode[] = [];
-
+  response: any = undefined;
   constructor(private globalService: GlobalService) {}
 
   generateEconomicPath() {
     this.globalService.economicPath();
   }
   generateTravelAgent() {
-    this.globalService.travelAgent();
+    let response = this.globalService.travelAgent();
+    response.path.splice(0, 1);
+    this.response = response;
   }
 
   ngOnInit() {}
