@@ -11,6 +11,7 @@ import { ShowNodesComponent } from "./components/show-nodes/show-nodes.component
 import { ReactiveFormsModule } from "@angular/forms";
 import { GlobalService } from "./services/global.service";
 import { NodesPageComponent } from './pages/nodes-page/nodes-page.component';
+import { NodeCardComponent } from './components/node-card/node-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NodesPageComponent } from './pages/nodes-page/nodes-page.component';
     CreateNodeComponent,
     CreateConecctionComponent,
     ShowNodesComponent,
-    NodesPageComponent
+    NodesPageComponent,
+    NodeCardComponent
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [GlobalService],
